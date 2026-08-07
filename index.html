@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+<title>Ashwin & Harshini — Wedding Invitation</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+<style>
+:root{
+  --ivory:#fff8e7;--paper:#fffdf4;--blush:#f3dfc0;--rose:#e8c487;
+  --sage:#7f8a55;--wine:#7a1f22;--text:#563a2f;--muted:#9d7d5f;
+  --serif:"Cormorant Garamond",serif;--sans:"Montserrat",sans-serif;
+}
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+html,body{width:100%;min-height:100%;background:#efe4cf}
+body{font-family:var(--serif);color:var(--text);display:flex;justify-content:center}
+.app{width:100%;max-width:430px;min-height:100dvh;background:var(--ivory);position:relative;overflow:hidden}
+.bg:before,.bg:after{content:"";position:fixed;pointer-events:none;z-index:0;border-radius:50%}
+.bg:before{width:300px;height:600px;left:calc(50% - 350px);bottom:-180px;background:#d6b66f;opacity:.24;transform:rotate(-18deg)}
+.bg:after{width:220px;height:540px;right:calc(50% - 320px);top:-170px;background:#b6493f;opacity:.12;transform:rotate(18deg)}
+.header{position:fixed;top:0;left:50%;transform:translateX(-50%);width:min(430px,100%);height:64px;z-index:20;display:flex;align-items:center;justify-content:space-between;padding:12px 16px;background:linear-gradient(var(--ivory),rgba(251,248,242,.92),rgba(251,248,242,0))}
+.brand{font-size:16px;color:var(--wine)}
+.music-btn{border:0;background:var(--wine);color:white;border-radius:18px;padding:8px 13px;font:600 10px var(--sans);letter-spacing:.8px;box-shadow:0 3px 8px rgba(83,25,36,.16)}
+.screen{position:absolute;inset:0;z-index:2;padding:78px 18px 82px;overflow-y:auto;opacity:0;transform:translateX(22px);pointer-events:none;transition:.45s ease}
+.screen.active{opacity:1;transform:none;pointer-events:auto}
+.center{min-height:calc(100dvh - 160px);display:flex;flex-direction:column;align-items:center;justify-content:center}
+.cover-card{width:100%;max-width:320px;padding:34px 24px 28px;background:rgba(255,253,249,.96);border:1px solid #e8d4cd;border-radius:6px;box-shadow:0 12px 25px rgba(106,70,70,.12);text-align:center;position:relative}
+.cover-card:before{content:"";position:absolute;inset:9px;border:1px solid #efdcd6;border-radius:3px;pointer-events:none}
+.monogram{width:64px;height:64px;border-radius:50%;margin:0 auto 20px;background:var(--wine);color:#e7c9af;display:grid;place-items:center;font-size:22px;letter-spacing:2px;box-shadow:0 5px 12px rgba(111,36,50,.25)}
+.eyebrow{font:500 9px var(--sans);letter-spacing:2px;text-transform:uppercase;color:var(--muted);margin-bottom:10px}
+h1,h2,h3{font-weight:500;color:var(--wine)}
+.cover-card h1{font-size:34px;line-height:1.1}
+.amp{font-size:22px;color:#b9907d;margin:5px 0}
+.quote{font-size:15px;font-style:italic;color:#77686a;line-height:1.5;margin:18px auto}
+.primary,.secondary{border:0;border-radius:22px;padding:12px 20px;font:500 10px var(--sans);letter-spacing:1px;text-transform:uppercase;cursor:pointer}
+.primary{background:var(--wine);color:white;box-shadow:0 4px 10px rgba(111,36,50,.22)}
+.secondary{background:#fff8f4;color:var(--wine);border:1px solid #ead6ce}
+.welcome{text-align:center;padding-top:8px}
+.welcome h1{font-size:35px;margin:7px 0}
+.welcome p{font-size:16px;line-height:1.55}
+.divider{width:80px;height:1px;background:#d7bdb4;margin:17px auto}
+.count-card{margin:24px auto 16px;max-width:340px;background:rgba(255,253,249,.97);border:1px solid #ead8d2;border-radius:9px;padding:14px;box-shadow:0 5px 13px rgba(91,68,68,.07)}
+.count-title{font:500 9px var(--sans);letter-spacing:1.5px;text-transform:uppercase;color:#8d7d7e;margin-bottom:11px}
+.count-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}
+.count-box{background:#fff8f4;border:1px solid #f0ddd7;border-radius:7px;padding:10px 4px}
+.count-box strong{display:block;color:var(--wine);font:500 18px var(--sans)}
+.count-box span{font:500 7px var(--sans);letter-spacing:1px;color:#a38f90;text-transform:uppercase}
+.section-title{text-align:center;margin:4px 0 18px}
+.section-title h2{font-size:29px}
+.section-title p{font:500 9px var(--sans);letter-spacing:1.6px;text-transform:uppercase;color:#a18e8f;margin-bottom:6px}
+.menu{display:grid;gap:11px}
+.menu-card{width:100%;border:1px solid #e9d9d3;border-radius:11px;background:rgba(255,253,249,.97);padding:14px 13px;display:grid;grid-template-columns:38px 1fr 18px;gap:10px;align-items:center;text-align:left;color:inherit;box-shadow:0 4px 10px rgba(90,68,68,.05)}
+.icon{width:36px;height:36px;border-radius:50%;display:grid;place-items:center;background:#f5e7e2;color:var(--wine)}
+.menu-card b{display:block;font-size:17px;color:#7a4851;font-weight:500}
+.menu-card small{font:400 9px var(--sans);color:#a49394}
+.chev{color:#b4a4a5}
+.event-card,.venue-card,.map-card{background:rgba(255,253,249,.97);border:1px solid #e8d8d1;border-radius:10px;padding:20px 16px;margin-bottom:14px;text-align:center;box-shadow:0 5px 12px rgba(86,65,65,.06);position:relative;overflow:hidden}
+.event-card:after,.venue-card:after{content:"";position:absolute;width:80px;height:80px;border-radius:50%;right:-35px;top:-35px;background:#f6e9e4}
+.event-date{font-size:26px;color:var(--wine)}
+.event-day{font:500 8px var(--sans);letter-spacing:1px;color:#9d8d8d;text-transform:uppercase;margin:4px 0 13px}
+.pill{display:inline-block;padding:4px 10px;border-radius:12px;background:#f3e1dc;color:var(--wine);font:600 7px var(--sans);letter-spacing:1px;text-transform:uppercase;margin:5px 0}
+.event-name{font-size:17px;color:#72545a}
+.event-time{font:400 9px var(--sans);color:#a18f90;margin:3px 0 9px}
+.card-line{width:45px;height:1px;background:#ead2c9;margin:10px auto}
+.small-btn{border:1px solid #e7d5ce;background:#fff8f4;color:#8b6067;border-radius:15px;padding:8px 13px;font:500 8px var(--sans);letter-spacing:.6px;text-transform:uppercase}
+.venue-name{font-size:20px;color:#714650;margin:5px 0}
+.venue-address{font:400 9px var(--sans);line-height:1.5;color:#a08f90;margin-bottom:14px}
+.back{position:fixed;bottom:16px;left:50%;transform:translateX(-50%);z-index:20;border:1px solid #e3d3cc;background:rgba(255,253,249,.96);color:#8a6469;border-radius:20px;padding:10px 18px;font:500 8px var(--sans);letter-spacing:.8px;text-transform:uppercase;box-shadow:0 5px 15px rgba(77,57,57,.12);display:none}
+.back.show{display:block}
+.qr{display:flex;justify-content:center;margin:13px 0}
+.qr canvas,.qr img{padding:8px;background:white;border:1px solid #ead8d1}
+.footer-note{text-align:center;font-size:11px;color:#b09fa0;margin-top:20px}
+@media(min-width:431px){.app{box-shadow:0 0 28px rgba(0,0,0,.12)}}
+
+.glitter-layer{
+  position:absolute;
+  inset:0;
+  overflow:hidden;
+  pointer-events:none;
+  z-index:6;
+}
+.glitter-piece{
+  position:absolute;
+  top:-24px;
+  width:8px;
+  height:14px;
+  border-radius:2px;
+  opacity:.95;
+  animation:glitterFall linear forwards;
+  box-shadow:0 0 8px rgba(255,255,255,.65);
+}
+@keyframes glitterFall{
+  0%{transform:translate3d(0,-10px,0) rotate(0deg);opacity:0}
+  10%{opacity:1}
+  100%{transform:translate3d(var(--drift),110vh,0) rotate(720deg);opacity:0}
+}
+
+
+/* Traditional Hindu wedding theme accents */
+.app::before{
+  content:"ॐ";
+  position:fixed; left:50%; top:74px; transform:translateX(-50%);
+  font-family:Georgia,serif; font-size:28px; color:#b78a3d; opacity:.22;
+  z-index:1; pointer-events:none;
+}
+.cover-card,.event-card,.venue-card,.map-card,.count-card,.menu-card{
+  border-color:#d9b46f !important;
+}
+.cover-card:before{border-color:#e0bd78 !important;}
+.monogram{
+  background:#7a1f22 !important; color:#f5d98a !important;
+  border:2px solid #c99b48;
+}
+.primary,.music-btn{background:#7a1f22 !important;}
+.secondary{background:#fff6dc !important;border-color:#d8b36b !important;}
+.pill{background:#f6e2a8 !important;color:#7a1f22 !important;}
+.icon{background:#f5e4b8 !important;}
+.section-title h2,.event-date,.event-name,.venue-name,.brand{color:#7a1f22 !important;}
+.divider,.card-line{background:#d5ad61 !important;}
+.header{
+  background:linear-gradient(#fff8e7,rgba(255,248,231,.94),rgba(255,248,231,0)) !important;
+}
+.traditional-lotus{font-size:26px;color:#b78a3d;margin-bottom:10px;}
+
+</style>
+</head>
+<body>
+<div class="app bg">
+<audio id="music" loop preload="auto"><source src="music.mp3" type="audio/mpeg"></audio>
+
+<header class="header">
+  <div class="brand">Ashwin & Harshini</div>
+  <button class="music-btn" id="musicBtn" onclick="toggleMusic()">♫ MUSIC ON</button>
+</header>
+
+<section class="screen active" id="cover">
+  <div class="center">
+    <div class="cover-card">
+      <div class="traditional-lotus">❀</div><div class="monogram">A & H</div>
+      <div class="eyebrow">Wedding Invitation</div>
+      <h1>Ashwin</h1><div class="amp">&</div><h1>Harshini</h1>
+      <div class="quote">“Something beautiful is waiting to be discovered…”</div>
+      <button class="primary" onclick="openInvitation()">↗ Open Invitation ♥</button>
+    </div>
+  </div>
+</section>
+
+<section class="screen" id="welcome">
+  <div class="glitter-layer" id="glitterLayer"></div>
+  <div class="center welcome">
+    <div class="traditional-lotus">❀</div><div class="eyebrow">Together with their families</div>
+    <h1>Ashwin <span class="amp">&</span> Harshini</h1>
+    <p>joyfully invite you to celebrate their wedding<br>and reception festivities.</p>
+    <div class="divider"></div>
+    <p class="quote">“As we begin this new chapter together, we invite you to celebrate the moments that matter most.”</p>
+    <div class="count-card">
+      <div class="count-title">♡ Countdown to Celebration</div>
+      <div class="count-grid">
+        <div class="count-box"><strong id="days">0</strong><span>Days</span></div>
+        <div class="count-box"><strong id="hours">0</strong><span>Hours</span></div>
+        <div class="count-box"><strong id="minutes">0</strong><span>Minutes</span></div>
+        <div class="count-box"><strong id="seconds">0</strong><span>Seconds</span></div>
+      </div>
+    </div>
+    <button class="secondary" onclick="go('menu')">Explore Celebration →</button>
+    <div class="footer-note">♥ August 22 – 27, 2026</div>
+  </div>
+</section>
+
+<section class="screen" id="menu">
+  <div class="section-title"><p>The Celebrations</p><h2>Join Our Journey</h2></div>
+  <div class="menu">
+    <button class="menu-card" onclick="go('tirupati')"><span class="icon">🌸</span><span><b>Tirupati Wedding</b><small>Aug 22–23 · Nuptials</small></span><span class="chev">›</span></button>
+    <button class="menu-card" onclick="go('chennai')"><span class="icon">▣</span><span><b>Chennai Reception</b><small>Aug 25 · Madras Race Club</small></span><span class="chev">›</span></button>
+    <button class="menu-card" onclick="go('bengaluru')"><span class="icon">✣</span><span><b>Bengaluru Reception</b><small>Aug 27 · Taj Vivanta</small></span><span class="chev">›</span></button>
+    <button class="menu-card" onclick="go('maps')"><span class="icon">⌖</span><span><b>Find Us & Maps</b><small>Interactive Maps & QR Codes</small></span><span class="chev">›</span></button>
+  </div>
+  <div class="footer-note">Ashwin & Harshini Wedding Celebration · August 2026</div>
+</section>
+
+<section class="screen" id="tirupati">
+  <div class="section-title"><p>Traditional Nuptials & Ceremonies</p><h2>Tirupati Wedding</h2></div>
+  <div class="event-card">
+    <div class="event-date">22</div><div class="event-day">August 2026, Saturday</div>
+    <span class="pill">Celebration</span><div class="event-description" style="font-size:.72rem;color:#8f7654;margin:6px 0 2px;">Welcoming the Groom</div><div class="event-name">Maappillai Azhaippu</div><div class="event-time">◷ 6:00 PM – 7:00 PM</div>
+    <div class="card-line"></div><span class="pill">Reception</span><div class="event-name">Varaverpu</div><div class="event-time">◷ 7:00 PM – 9:00 PM</div>
+    <button class="small-btn" onclick="downloadICS('Maappillai Azhaippu & Varaverpu','2026-08-22T18:00:00','2026-08-22T21:00:00','Sri Raghavendra Mutt Mandapam, Tirupati')">▣ Add to Calendar</button>
+  </div>
+  <div class="event-card">
+    <div class="event-date">23</div><div class="event-day">August 2026, Sunday</div>
+    <span class="pill">Muhurtham</span><div class="event-name">Muhurtham</div><div class="event-time">◷ 9:00 AM – 10:00 AM</div>
+    <div class="card-line"></div><span class="pill">Celebration</span><div class="event-name">Festive Lunch</div><div class="event-time">◷ 12:00 PM onwards</div>
+    <button class="small-btn" onclick="downloadICS('Wedding Muhurtham & Lunch','2026-08-23T09:00:00','2026-08-23T15:00:00','Sri Raghavendra Mutt Mandapam, Tirupati')">▣ Add to Calendar</button>
+  </div>
+  <div class="venue-card"><div class="eyebrow">⌖ Venue Details</div><div class="venue-name">Sri Raghavendra Mutt Mandapam</div><div class="venue-address">Thirumala (Ring Road), Tirupati, Andhra Pradesh</div><button class="primary" onclick="openMap('tirupati')">⌖ Open Directions ↗</button></div>
+</section>
+
+<section class="screen" id="chennai">
+  <div class="section-title"><p>Evening of Joy & Celebration</p><h2>Chennai Reception</h2></div>
+  <div class="event-card"><div class="event-date">25</div><div class="event-day">August 2026, Tuesday</div><span class="pill">Reception</span><div class="event-name">Chennai Reception</div><div class="event-time">◷ 7:00 PM onwards</div><button class="small-btn" onclick="downloadICS('Chennai Reception','2026-08-25T19:00:00','2026-08-25T22:00:00','Madras Race Club, Guindy, Chennai')">▣ Add to Calendar</button></div>
+  <div class="venue-card"><div class="eyebrow">⌖ Venue Details</div><div class="venue-name">Madras Race Club</div><div class="venue-address">Guindy, Chennai, Tamil Nadu</div><button class="primary" onclick="openMap('chennai')">⌖ Open Directions ↗</button></div>
+</section>
+
+<section class="screen" id="bengaluru">
+  <div class="section-title"><p>Dinner & Meet & Greet</p><h2>Bengaluru Reception</h2></div>
+  <div class="event-card"><div class="event-date">27</div><div class="event-day">August 2026, Thursday</div><span class="pill">Reception</span><div class="event-name">Bengaluru Reception</div><div class="event-time">◷ 7:30 PM onwards</div><button class="small-btn" onclick="downloadICS('Bengaluru Reception','2026-08-27T19:30:00','2026-08-27T22:30:00','Taj Vivanta, Bengaluru')">▣ Add to Calendar</button></div>
+  <div class="venue-card"><div class="eyebrow">⌖ Venue Details</div><div class="venue-name">Taj Vivanta</div><div class="venue-address">Bengaluru, Karnataka</div><button class="primary" onclick="openMap('bengaluru')">⌖ Open Directions ↗</button></div>
+</section>
+
+<section class="screen" id="maps">
+  <div class="section-title"><p>Locations & Directions</p><h2>Find Us Easily</h2></div>
+  <div class="map-card"><div class="eyebrow">⌖ Tirupati Venue</div><div class="venue-name">Sri Raghavendra Mutt Mandapam</div><div class="venue-address">Thirumala (Ring Road), Tirupati</div><div class="qr" id="qr-tirupati"></div><div class="event-day">Scan for map</div><button class="secondary" onclick="openMap('tirupati')">↗ Get Directions</button></div>
+  <div class="map-card"><div class="eyebrow">⌖ Chennai Venue</div><div class="venue-name">Madras Race Club</div><div class="venue-address">Guindy, Chennai</div><div class="qr" id="qr-chennai"></div><div class="event-day">Scan for map</div><button class="secondary" onclick="openMap('chennai')">↗ Get Directions</button></div>
+  <div class="map-card"><div class="eyebrow">⌖ Bengaluru Venue</div><div class="venue-name">Taj Vivanta</div><div class="venue-address">Bengaluru, Karnataka</div><div class="qr" id="qr-bengaluru"></div><div class="event-day">Scan for map</div><button class="secondary" onclick="openMap('bengaluru')">↗ Get Directions</button></div>
+</section>
+
+<button class="back" id="backBtn" onclick="go('menu')">← Return to Menu</button>
+</div>
+
+<script>
+const MAP_URLS={
+ tirupati:"https://maps.app.goo.gl/MUJz4PQTpp4xwYZt9",
+ chennai:"https://maps.app.goo.gl/t5uzpcRbdmhs6Wkv8",
+ bengaluru:"https://maps.app.goo.gl/EnJYfwc5Z2tvc5aq7"
+};
+const music=document.getElementById("music");
+const musicBtn=document.getElementById("musicBtn");
+let musicOn=true;
+
+function startMusic(){
+ music.volume=.55;
+ music.play().then(()=>{musicOn=true;musicBtn.textContent="♫ MUSIC ON";}).catch(()=>{musicOn=false;musicBtn.textContent="♫ MUSIC OFF";});
+}
+function toggleMusic(){
+ if(music.paused){startMusic()}else{music.pause();musicOn=false;musicBtn.textContent="♫ MUSIC OFF"}
+}
+function openInvitation(){startMusic();go("welcome");setTimeout(launchGlitter,180)}
+function go(id){
+ document.querySelectorAll(".screen").forEach(s=>s.classList.remove("active"));
+ const target=document.getElementById(id); if(target){target.classList.add("active");target.scrollTop=0}
+ document.getElementById("backBtn").classList.toggle("show",!["cover","welcome","menu"].includes(id));
+}
+function openMap(k){window.open(MAP_URLS[k],"_blank","noopener")}
+function downloadICS(title,startISO,endISO,location){
+ const clean=s=>s.replace(/[-:]/g,"");
+ const data=`BEGIN:VCALENDAR\r\nVERSION:2.0\r\nPRODID:-//Ashwin & Harshini//Wedding Invitation//EN\r\nBEGIN:VEVENT\r\nSUMMARY:${title}\r\nDTSTART:${clean(startISO)}\r\nDTEND:${clean(endISO)}\r\nLOCATION:${location}\r\nDESCRIPTION:Wedding celebration for Ashwin & Harshini.\r\nSTATUS:CONFIRMED\r\nEND:VEVENT\r\nEND:VCALENDAR`;
+ const blob=new Blob([data],{type:"text/calendar;charset=utf-8"});
+ const a=document.createElement("a");a.href=URL.createObjectURL(blob);a.download=title.replace(/\s+/g,"_")+".ics";document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(a.href),1000);
+}
+
+function launchGlitter(){
+ const layer=document.getElementById("glitterLayer");
+ if(!layer) return;
+ layer.innerHTML="";
+ const palette=["#f3c969","#e6a4b4","#ffffff","#c9d7b8","#d7b4f3","#f1d0a8"];
+ const count=64;
+ for(let i=0;i<count;i++){
+  const piece=document.createElement("span");
+  piece.className="glitter-piece";
+  piece.style.left=Math.random()*100+"%";
+  piece.style.background=palette[Math.floor(Math.random()*palette.length)];
+  piece.style.animationDuration=(3.6+Math.random()*2.8)+"s";
+  piece.style.animationDelay=(Math.random()*1.4)+"s";
+  piece.style.setProperty("--drift",(Math.random()*180-90)+"px");
+  piece.style.transform=`rotate(${Math.random()*360}deg)`;
+  piece.style.width=(5+Math.random()*6)+"px";
+  piece.style.height=(7+Math.random()*11)+"px";
+  layer.appendChild(piece);
+ }
+ setTimeout(()=>{layer.innerHTML="";},7000);
+}
+
+function updateCountdown(){
+ const target=new Date("2026-08-22T18:00:00+05:30").getTime();
+ let d=Math.max(0,target-Date.now());
+ document.getElementById("days").textContent=Math.floor(d/86400000);
+ document.getElementById("hours").textContent=Math.floor(d/3600000)%24;
+ document.getElementById("minutes").textContent=Math.floor(d/60000)%60;
+ document.getElementById("seconds").textContent=Math.floor(d/1000)%60;
+}
+document.addEventListener("DOMContentLoaded",()=>{
+ updateCountdown();setInterval(updateCountdown,1000);
+ if(window.QRCode){
+  Object.entries(MAP_URLS).forEach(([k,url])=>new QRCode(document.getElementById("qr-"+k),{text:url,width:132,height:132,colorDark:"#6f2432",colorLight:"#fffdf9"}));
+ }
+});
+</script>
+</body>
+</html>
